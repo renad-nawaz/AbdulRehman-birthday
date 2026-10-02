@@ -1,0 +1,403 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>For Abdul Rehman ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #000;
+    overflow: hidden;
+    color: #ffd6e0;
+    font-family: Georgia, serif;
+}
+
+#screen {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* HEART */
+.heart-container {
+    position: relative;
+    width: 90vw;
+    height: 80vh;
+}
+
+.love {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    white-space: nowrap;
+
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.love.show {
+    opacity: 1;
+}
+
+/* Middle heart */
+.center-heart {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    color: #ff1744;
+    font-size: 48px;
+
+    opacity: 0;
+    transition: opacity 1s ease;
+}
+
+.center-heart.show {
+    opacity: 1;
+}
+
+
+/* BIRTHDAY */
+
+.birthday {
+    text-align: center;
+    animation: fadeIn 1.5s ease;
+}
+
+.birthday h1 {
+    margin: 0 0 15px;
+
+    font-size: clamp(32px, 8vw, 60px);
+
+    color: #ffb6c1;
+
+    text-shadow:
+        0 0 10px #ff69b4,
+        0 0 25px #ff1493;
+}
+
+.birthday h2 {
+    margin: 0;
+
+    font-size: clamp(27px, 7vw, 55px);
+
+    color: #ff1493;
+
+    text-shadow:
+        0 0 10px #ff69b4,
+        0 0 25px #ff1493;
+}
+
+
+/* LETTER */
+
+.letter {
+    width: min(90%, 650px);
+
+    max-height: 90vh;
+
+    overflow-y: auto;
+
+    text-align: center;
+
+    padding: 25px;
+
+    animation: fadeIn 1.5s ease;
+}
+
+.letter p {
+    margin: 0 0 16px;
+
+    font-size: clamp(15px, 3.5vw, 19px);
+
+    line-height: 1.6;
+}
+
+.signature {
+    margin-top: 25px !important;
+
+    color: #ffb6c1;
+
+    font-size: 20px !important;
+}
+
+
+/* FADE */
+
+@keyframes fadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+
+/* HIDDEN */
+
+.hidden {
+    display: none;
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div id="screen">
+
+    <!-- HEART -->
+
+    <div id="heart" class="heart-container">
+
+        <div id="centerHeart" class="center-heart">
+            ♥
+        </div>
+
+    </div>
+
+
+    <!-- BIRTHDAY -->
+
+    <div id="birthday" class="birthday hidden">
+
+        <h1>HAPPY BIRTHDAY</h1>
+
+        <h2>
+            ABDUL REHMAN ❤️
+        </h2>
+
+    </div>
+
+
+    <!-- LETTER -->
+
+    <div id="letter" class="letter hidden">
+
+        <p>
+            Happy birthday, my love. ❤️
+        </p>
+
+        <p>
+            I hope today reminds you<br>
+            of how deeply loved you are.
+        </p>
+
+        <p>
+            Thank you for being a part<br>
+            of my life and for making<br>
+            so many ordinary moments<br>
+            feel a little more special.
+        </p>
+
+        <p>
+            I hope this new year of your life<br>
+            brings you everything your heart desires.
+        </p>
+
+        <p>
+            Happy birthday, Abdul Rehman. ❤️
+        </p>
+
+        <p class="signature">
+            Always yours,<br>
+            Renah 🤍
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+const heart = document.getElementById("heart");
+
+const centerHeart =
+    document.getElementById("centerHeart");
+
+const birthday =
+    document.getElementById("birthday");
+
+const letter =
+    document.getElementById("letter");
+
+
+/* COLORS */
+
+const colors = [
+    "#ffb6c1",
+    "#ff69b4",
+    "#ff1493",
+    "#ffc0cb",
+    "#ff85a2"
+];
+
+
+/* HEART FORMULA */
+
+function heartX(t) {
+
+    return 16 * Math.pow(Math.sin(t), 3);
+
+}
+
+
+function heartY(t) {
+
+    return (
+        13 * Math.cos(t)
+        - 5 * Math.cos(2 * t)
+        - 2 * Math.cos(3 * t)
+        - Math.cos(4 * t)
+    );
+
+}
+
+
+/* CREATE HEART */
+
+const totalWords = 140;
+
+
+/*
+   Calculate a scale that fits
+   nicely on both laptop and phone.
+*/
+
+const scale = Math.min(
+    window.innerWidth / 48,
+    window.innerHeight / 48
+);
+
+
+/*
+   Create every I LOVE YOU
+   at its FINAL position.
+
+   Nothing moves.
+*/
+
+for (let i = 0; i < totalWords; i++) {
+
+    const t =
+        (2 * Math.PI * i) / totalWords;
+
+
+    const x =
+        heartX(t) * scale;
+
+
+    const y =
+        -heartY(t) * scale;
+
+
+    const word =
+        document.createElement("div");
+
+
+    word.className = "love";
+
+
+    word.innerText =
+        "I LOVE YOU";
+
+
+    word.style.left =
+        `calc(50% + ${x}px)`;
+
+
+    word.style.top =
+        `calc(50% + ${y}px)`;
+
+
+    word.style.color =
+        colors[
+            Math.floor(
+                Math.random() * colors.length
+            )
+        ];
+
+
+    heart.appendChild(word);
+
+
+    /*
+       Words simply appear
+       one after another.
+
+       They DO NOT MOVE.
+    */
+
+    setTimeout(() => {
+
+        word.classList.add("show");
+
+    }, i * 45);
+
+}
+
+
+/* TOTAL HEART TIME */
+
+const heartTime =
+    totalWords * 45 + 1800;
+
+
+/* SHOW CENTER HEART */
+
+setTimeout(() => {
+
+    centerHeart.classList.add("show");
+
+}, heartTime - 1000);
+
+
+/* SHOW BIRTHDAY */
+
+setTimeout(() => {
+
+    heart.classList.add("hidden");
+
+    birthday.classList.remove("hidden");
+
+}, heartTime);
+
+
+/* SHOW LETTER */
+
+setTimeout(() => {
+
+    birthday.classList.add("hidden");
+
+    letter.classList.remove("hidden");
+
+}, heartTime + 4000);
+
+</script>
+
+</body>
+</html>
+```
